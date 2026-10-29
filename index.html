@@ -2,74 +2,144 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Arena VR Sports Beach</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #101820;
-      color: white;
-      text-align: center;
-    }
-    header {
-      background: #182d38;
-      padding: 35px 15px;
-    }
-    h1 { color: #f4c45b; }
-    main { padding: 25px 18px; }
-    .quadra {
-      background: #243844;
-      padding: 22px;
-      margin: 18px auto;
-      border-radius: 15px;
-      max-width: 400px;
-    }
-    button {
-      background: #f4c45b;
-      border: none;
-      border-radius: 8px;
-      padding: 14px 25px;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Arena VR Sports Beach - Reservas</title>
+<style>
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #101820;
+  color: white;
+}
+header {
+  background: #203440;
+  text-align: center;
+  padding: 32px 16px;
+}
+h1 { color: #f4c45b; margin: 0 0 12px; }
+main { max-width: 520px; margin: auto; padding: 22px; }
+.card {
+  background: #263b47;
+  padding: 20px;
+  border-radius: 15px;
+  margin-bottom: 18px;
+}
+label { display: block; margin: 15px 0 7px; }
+input, select {
+  width: 100%;
+  padding: 13px;
+  border: 1px solid #607580;
+  border-radius: 8px;
+  font-size: 16px;
+  background: white;
+  color: #18232b;
+}
+button {
+  width: 100%;
+  padding: 15px;
+  background: #f4c45b;
+  border: none;
+  border-radius: 9px;
+  font-size: 17px;
+  font-weight: bold;
+  margin-top: 20px;
+  cursor: pointer;
+}
+small { color: #d2dce1; }
+#resultado { line-height: 1.7; }
+</style>
 </head>
 <body>
-  <header>
-    <h1>ARENA VR SPORTS BEACH</h1>
-    <p>Seu esporte, sua arena!</p>
-  </header>
+<header>
+  <h1>🏖️ ARENA VR SPORTS BEACH</h1>
+  <p>Seu esporte, sua arena!</p>
+</header>
+<main>
+  <h2>Reserve seu horário</h2>
+  <div class="card">
+    <form id="reserva">
+      <label for="quadra">Escolha a quadra</label>
+      <select id="quadra" required>
+        <option value="1">Quadra 1</option>
+        <option value="2">Quadra 2</option>
+      </select>
 
-  <main>
-    <h2>Reserve seu horário</h2>
-    <p>Escolha uma das nossas quadras</p>
+      <label for="data">Data</label>
+      <input type="date" id="data"
+             value="2026-10-29" required>
 
-    <div class="quadra">
-      <h2>🏖️ Quadra 1</h2>
-      <p>Beach Tennis</p>
-      <button onclick="reservar(1)">
-        Reservar horário
+      <label for="horario">Horário</label>
+      <select id="horario" required>
+        <option value="18:00">18:00 às 19:00</option>
+        <option value="19:00">19:00 às 20:00</option>
+        <option value="20:00">20:00 às 21:00</option>
+      </select>
+
+      <label for="nome">Nome completo</label>
+      <input id="nome" type="text"
+             autocomplete="name" required>
+
+      <label for="telefone">WhatsApp</label>
+      <input id="telefone" type="tel"
+             autocomplete="tel" required>
+
+      <p><strong>Valor de teste: R$ 60,00</strong></p>
+      <small>Esta é uma demonstração. Nenhum
+      agendamento ou pagamento será realizado.</small>
+
+      <button type="submit">
+        Visualizar reserva
       </button>
-    </div>
+    </form>
+  </div>
+  <div id="resultado" class="card" hidden
+       role="status"></div>
+</main>
+<script>
+document.getElementById("reserva")
+.addEventListener("submit", function(event) {
+  event.preventDefault();
 
-    <div class="quadra">
-      <h2>🏖️ Quadra 2</h2>
-      <p>Beach Tennis</p>
-      <button onclick="reservar(2)">
-        Reservar horário
-      </button>
-    </div>
-  </main>
+  const quadra = document.getElementById("quadra").value;
+  const data = document.getElementById("data").value;
+  const horario = document.getElementById("horario").value;
+  const nome = document.getElementById("nome").value;
+  const telefone = document.getElementById("telefone").value;
+  const partes = data.split("-");
+  const dataBR = partes[2] + "/" +
+                 partes[1] + "/" + partes[0];
 
-  <script>
-    function reservar(quadra) {
-      alert("Reserva da Quadra " + quadra +
-        ". Em breve teremos o calendário!");
-    }
-  </script>
+  const resultado = document.getElementById("resultado");
+  resultado.replaceChildren();
+
+  const titulo = document.createElement("h2");
+  titulo.textContent = "Resumo da reserva (teste)";
+  resultado.appendChild(titulo);
+
+  const campos = [
+    ["Quadra", quadra],
+    ["Data", dataBR],
+    ["Horário", horario],
+    ["Cliente", nome],
+    ["WhatsApp", telefone],
+    ["Valor", "R$ 60,00"],
+    ["Status", "Simulação - não confirmada"]
+  ];
+
+  campos.forEach(function(campo) {
+    const linha = document.createElement("p");
+    const destaque = document.createElement("strong");
+    destaque.textContent = campo[0] + ": ";
+    linha.appendChild(destaque);
+    linha.appendChild(document.createTextNode(campo[1]));
+    resultado.appendChild(linha);
+  });
+
+  resultado.hidden = false;
+  resultado.scrollIntoView({behavior:"smooth"});
+});
+</script>
 </body>
 </html>
-
