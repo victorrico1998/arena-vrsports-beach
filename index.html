@@ -1,1 +1,75 @@
 
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Arena VR Sports Beach</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #101820;
+      color: white;
+      text-align: center;
+    }
+    header {
+      background: #182d38;
+      padding: 35px 15px;
+    }
+    h1 { color: #f4c45b; }
+    main { padding: 25px 18px; }
+    .quadra {
+      background: #243844;
+      padding: 22px;
+      margin: 18px auto;
+      border-radius: 15px;
+      max-width: 400px;
+    }
+    button {
+      background: #f4c45b;
+      border: none;
+      border-radius: 8px;
+      padding: 14px 25px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>ARENA VR SPORTS BEACH</h1>
+    <p>Seu esporte, sua arena!</p>
+  </header>
+
+  <main>
+    <h2>Reserve seu horário</h2>
+    <p>Escolha uma das nossas quadras</p>
+
+    <div class="quadra">
+      <h2>🏖️ Quadra 1</h2>
+      <p>Beach Tennis</p>
+      <button onclick="reservar(1)">
+        Reservar horário
+      </button>
+    </div>
+
+    <div class="quadra">
+      <h2>🏖️ Quadra 2</h2>
+      <p>Beach Tennis</p>
+      <button onclick="reservar(2)">
+        Reservar horário
+      </button>
+    </div>
+  </main>
+
+  <script>
+    function reservar(quadra) {
+      alert("Reserva da Quadra " + quadra +
+        ". Em breve teremos o calendário!");
+    }
+  </script>
+</body>
+</html>
+
